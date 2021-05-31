@@ -30,7 +30,7 @@ namespace client
                 Console.WriteLine($"Connecting to: {endpoint}");
                 await socket.ConnectAsync(endpoint, CancellationToken.None);
                 Console.WriteLine($"socket.AddressFamily: {socket.AddressFamily}");
-                // Accessing LocalEndpoint here causes the crash
+                // Accessing LocalEndPoint here throws the crash
                 Console.WriteLine($"connected to: {socket.LocalEndPoint}");
                 Console.ReadLine();
                 socket.Close();
