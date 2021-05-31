@@ -8,9 +8,8 @@ namespace server
     {
         static void Main(string[] args)
         {
-            var endpoint = new IPEndPoint(IPAddress.IPv6Loopback, 10000);
+            var endpoint = new IPEndPoint(IPAddress.Any, 62146);
             var socket = new Socket(endpoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            socket.DualMode = true;
             socket.ExclusiveAddressUse = true;
 
             socket.Bind(endpoint);

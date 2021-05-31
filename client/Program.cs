@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
@@ -9,12 +10,27 @@ namespace client
     {
         static async Task Main(string[] args)
         {
-            var endpoint = new DnsEndPoint("localhost", 10000);
-            var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+            try
+            {
+                EndPoint endpoint;
+                Socket socket;
 
-            await socket.ConnectAsync(endpoint);
-            Console.WriteLine($"connected to: {socket.LocalEndPoint}");
-            Console.ReadLine();
+                endpoint = new DnsEndPoint("localhost", 62146);
+                socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+                socket.DualMode = true;
+
+                Console.WriteLine($"Connecting to: {endpoint}");
+
+                await socket.ConnectAsync(endpoint, CancellationToken.None);
+                Console.WriteLine($"socket.AddressFamily: {socket.AddressFamily}");
+                Console.WriteLine($"connected to: {socket.LocalEndPoint}");
+                Console.ReadLine();
+                socket.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }
