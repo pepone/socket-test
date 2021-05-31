@@ -12,15 +12,10 @@ namespace client
         {
             try
             {
-                EndPoint endpoint;
-                Socket socket;
-
-                endpoint = new DnsEndPoint("localhost", 62146);
-                socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
-                socket.DualMode = true;
+                var endpoint = new DnsEndPoint("localhost", 62146);
+                var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
 
                 Console.WriteLine($"Connecting to: {endpoint}");
-
                 await socket.ConnectAsync(endpoint, CancellationToken.None);
                 Console.WriteLine($"socket.AddressFamily: {socket.AddressFamily}");
                 Console.WriteLine($"connected to: {socket.LocalEndPoint}");
